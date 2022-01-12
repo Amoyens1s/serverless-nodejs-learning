@@ -1,0 +1,37 @@
+component: express
+name: express-2bTn8EdBy
+org: '1304733725'
+app: express
+stage: dev
+inputs:
+  src:
+    src: ./
+    exclude:
+      - .env
+      - node_modules/**
+  region: ap-shanghai
+  runtime: Nodejs10.15
+  apigatewayConf:
+    protocols:
+      - http
+      - https
+    environment: release
+    serviceTimeout: 60
+    customDomains:
+      - domain: api.amoyensis.com
+        certificateId: s6b1tNIX
+        isDefaultMapping: false
+        pathMappingSet:
+          - path: /
+            environment: release
+        protocols:
+          - http
+    autoCreateDns: true
+  isAutoCiDeploy: false
+  functionConf:
+    eip: false
+    timeout: 3
+    memorySize: 128
+  layers:
+    - name: '${output:${stage}:${app}:express-layer.name}'
+      version: '${output:${stage}:${app}:express-layer.version}'
